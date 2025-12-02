@@ -2,10 +2,22 @@ const { ApolloServer, gql } = require('apollo-server');
 
 const typeDefs = gql`
 
+    scalar Date # Criar tipos personalizados no próprio schema
+
+    type User {
+        id: ID,
+        nome: String!,
+        email: String!,
+        idade: Int,
+        salario: Float,
+        vip: Boolean
+    }
+
     type Query { 
         ola: String,
         int: Int,
-        date: String
+        date: Date,
+        user: User
     }
 `;
 
@@ -21,7 +33,17 @@ const resolvers = {
         },
         date()
         {
-            return new Date().getDate().toString();
+            return new Date;
+        },
+        user(){
+            return {
+                id:      Math.floor(Math.random() * 50),
+                nome:    "Anthony",
+                email:   "Anthony.m.facc@gmail.com",
+                idade:   21,
+                salario: 10.000,
+                vip:     true
+            };
         }
     }
 };
